@@ -7,7 +7,9 @@
 #include <sys/time.h>
 #include <string.h>
 
-#include "sdkconfig.h"
+#if __has_include("sdkconfig.h")
+  #include "sdkconfig.h"
+#endif
 #include "soc/soc.h"
 #include "soc/rtc.h"
 #include "math.h"
@@ -1403,11 +1405,11 @@ uint8_t arr[0x200];
 
 void setupGPIO( int pin )
 {
-  gpio_pad_select_gpio( pin );
-  gpio_set_direction( pin , GPIO_MODE_OUTPUT);
-  gpio_set_level( pin , 0);
-  gpio_set_direction( pin , GPIO_MODE_INPUT);
-  gpio_pulldown_en( pin );
+  gpio_reset_pin((gpio_num_t)pin);
+  gpio_set_direction((gpio_num_t)pin, GPIO_MODE_OUTPUT);
+  gpio_set_level((gpio_num_t)pin, 0);
+  gpio_set_direction((gpio_num_t)pin, GPIO_MODE_INPUT);
+  gpio_pulldown_en((gpio_num_t)pin);
 }
 
 

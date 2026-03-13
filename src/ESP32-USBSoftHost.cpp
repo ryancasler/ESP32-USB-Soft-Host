@@ -246,12 +246,11 @@ bool USB_SOFT_HOST::_init( usb_pins_config_t pconf )
 
   Serial.printf("Seleting SCL (blink) Pin #%d\n", blink_gpio );
 
-  gpio_pad_select_gpio( blink_gpio );
-  gpio_set_direction( blink_gpio, GPIO_MODE_OUTPUT);
+  pinMode((int)blink_gpio, OUTPUT);
 
   Serial.println("Creating timer config");
 
-  #if defined ESP32 || defined ESP32S2
+  #if CONFIG_IDF_TARGET_ESP32 || CONFIG_IDF_TARGET_ESP32S2 || CONFIG_IDF_TARGET_ESP32S3
     timer_config_t config;
     config.divider     = TIMER_DIVIDER;
     config.counter_dir = TIMER_COUNT_UP;
@@ -259,7 +258,7 @@ bool USB_SOFT_HOST::_init( usb_pins_config_t pconf )
     config.alarm_en    = TIMER_ALARM_EN;
     config.intr_type   = TIMER_INTR_MAX;
     config.auto_reload = (timer_autoreload_t) 1; // fix for ¬invalid conversion from 'int' to 'timer_autoreload_t'¬ thanks rudi ;-)
-  #elif defined ESP32C3
+  #elif CONFIG_IDF_TARGET_ESP32C3
     timer_config_t config =
     {
       .clk_src     = TIMER_SRC_CLK_XTAL, // TIMER_SRC_CLK_DEFAULT ?

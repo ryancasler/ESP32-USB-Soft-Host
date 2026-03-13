@@ -10,6 +10,14 @@
 #include "driver/gpio.h"
 #include "esp32-hal-log.h"
 
+#ifndef TIMER_BASE_CLK
+  #ifdef APB_CLK_FREQ
+    #define TIMER_BASE_CLK APB_CLK_FREQ
+  #else
+    #define TIMER_BASE_CLK 80000000UL
+  #endif
+#endif
+
 #if ARDUHAL_LOG_LEVEL >= ARDUHAL_LOG_LEVEL_DEBUG
   #define DEBUG_ALL
 #endif

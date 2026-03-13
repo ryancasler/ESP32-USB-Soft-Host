@@ -13,8 +13,8 @@ Compatibility
 -------------
 
 This project requires Espressif [esp32](https://github.com/espressif/arduino-esp32) library:
-- Version `2.0.17` (which is the latest `2.x` release) is recommended which has been verified to work.
-- This project will _not_ compile with the `3.x` versions of the library.
+- Version `3.x` is now supported.
+- Version `2.0.17` (latest `2.x`) remains supported.
 
 
 USB Low Speed is slow
